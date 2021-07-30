@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+ database:
+  image: mongo
+  container_name: api_chat_db
+  ports:
+   - ${MONGO_PORT}:${MONGO_PORT}
+ api:
+  container_name: app_api
+  build: .
+  ports:
+   - ${PORT}:${PORT}
+  tmpfs:
+   - /home/temp
+  volumes:
+   - .:/home/services
+  depends_on:
+   - database
